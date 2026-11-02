@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enzo Fontaine | Portfolio BTS SIO SISR</title>
+<meta name="description" content="Portfolio d'Enzo Fontaine, étudiant en BTS SIO option SISR au lycée Saint-John Perse à Pau : projets réseaux et systèmes, stage de 1ère année chez Cybertek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Début de page : sans photo, avec une grille de points qui s'éclaire autour du curseur */
+.hero{display:block;position:relative;--cut:40px;padding:4.5rem 3rem 4.75rem;margin-bottom:4.5rem}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,70,85,.75) 1.3px,transparent 1.8px);background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent);
+  mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent)}
+.hero-content{position:relative}
+.hero h1{font-size:clamp(3.2rem,9vw,6.5rem)}
+.hero .role{font-size:clamp(1.4rem,3vw,2rem);margin:1rem 0 1.5rem}
+.hero .lead{max-width:48ch;font-size:1.25rem}
+@media (max-width:860px){.hero{padding:3rem 1.75rem 3.25rem}}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Navigation principale">
+  <ul>
+    <li><a href="index.html" aria-current="page">Accueil</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li class="has-menu">
+      <button type="button" aria-expanded="false" aria-controls="menu-stage">Stage <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+      <ul class="submenu" id="menu-stage">
+        <li><a href="stage1/stage-1ere-annee.html">Stage 1ère année</a></li>
+        <li><a href="stage-2eme-annee.html">Stage 2ème année</a></li>
+      </ul>
+    </li>
+    <li><a href="#projets">Projet</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <header class="panel hero">
+    <div class="hero-content">
+      <h1>Enzo Fontaine</h1>
+      <p class="role">Étudiant en BTS SIO, option SISR</p>
+      <p class="lead">Je construis des infrastructures virtualisées, j'administre des serveurs Linux et Windows et je m'intéresse à la sécurité des réseaux.</p>
+      <div class="actions">
+        <a class="btn btn-main" href="#projets">Voir mes projets</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="block about" id="a-propos">
+    <div>
+      <h2>À propos</h2>
+      <p>Je suis en première année de BTS Services informatiques aux organisations, option Solutions d'infrastructure, systèmes et réseaux (SISR), au lycée Saint-John Perse à Pau.</p>
+      <p>Ma formation couvre l'infrastructure réseau, l'administration Linux, le développement web et la programmation. J'aime comprendre comment les pièces s'assemblent, du PC monté à l'atelier jusqu'au réseau d'entreprise simulé en machines virtuelles.</p>
+    </div>
+    <div class="panel panel-sm">
+      <dl class="specs" style="margin-top:0">
+        <div><dt>Formation</dt><dd>BTS SIO, 1ère année</dd></div>
+        <div><dt>Option</dt><dd>SISR</dd></div>
+        <div><dt>Lycée</dt><dd>Saint-John Perse, Pau</dd></div>
+        <div><dt>Promotion</dt><dd>2025 à 2026</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="competences">
+    <h2>Compétences</h2>
+    <div class="skills">
+      <article class="card">
+        <h3>Réseaux</h3>
+        <ul class="tags">
+          <li>Routage et NAT</li><li>nftables</li><li>pfSense</li><li>DynFi</li><li>UFW</li><li>nmap</li><li>DHCP</li><li>DNS (BIND)</li><li>HAProxy</li><li>Cisco Packet Tracer</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Systèmes</h3>
+        <ul class="tags">
+          <li>Debian</li><li>Windows Server 2025</li><li>Active Directory</li><li>Samba</li><li>Proxmox</li><li>VirtualBox</li><li>SSH</li><li>MobaXterm</li><li>PuTTY</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Web et développement</h3>
+        <ul class="tags">
+          <li>Apache</li><li>Nginx</li><li>PHP</li><li>SQL (PDO)</li><li>MariaDB</li><li>Python</li><li>Bash</li><li>HTML et CSS</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Sécurité et support</h3>
+        <ul class="tags">
+          <li>Analyse d'e-mails malveillants</li><li>SPF, DKIM, DMARC</li><li>OSINT</li><li>Montage de PC</li><li>Diagnostic matériel</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="projets">
+    <h2>Projets et travaux pratiques</h2>
+    <div class="projects">
+      <article class="panel panel-sm">
+        <h3>Réseau d'une station de ski (ALPY)</h3>
+        <p>Environnement virtualisé complet dans VirtualBox : pare-feux DynFi, contrôleur de domaine Samba, base MariaDB, serveur web Nginx et WordPress, poste d'administration Windows 11. Routage entre DMZ et LAN, documentation technique et plans de tests.</p>
+        <ul class="tags"><li>VirtualBox</li><li>DynFi</li><li>Samba AD</li><li>MariaDB</li><li>Nginx</li></ul>
+      </article>
+      <article class="panel panel-sm">
+        <h3>Projet de groupe « kiwi »</h3>
+        <p>Infrastructure d'entreprise sur Proxmox avec deux pare-feux pfSense, une DMZ et un LAN. Mon rôle : monter le serveur web public ainsi que le serveur web et DNS privé.</p>
+        <ul class="tags"><li>Proxmox</li><li>pfSense</li><li>BIND</li><li>DMZ</li></ul>
+      </article>
+      <article class="panel panel-sm">
+        <h3>TP pfSense</h3>
+        <p>Pare-feu à trois interfaces (WAN, LAN, DMZ) avec NAT, redirection de ports et DHCP, puis fonctions avancées : NTP, journaux, monitoring, portail captif et limitation de débit.</p>
+        <ul class="tags"><li>pfSense</li><li>NAT</li><li>QoS</li><li>Portail captif</li></ul>
+      </article>
+      <article class="panel panel-sm">
+        <h3>Serveur LAMP et contre-mesures</h3>
+        <p>Mini-site hébergé sur Apache, PHP et MySQL, mis hors service depuis une machine attaquante, puis serveur sécurisé et re-testé.</p>
+        <ul class="tags"><li>Apache</li><li>PHP</li><li>MySQL</li><li>Debian 13</li></ul>
+      </article>
+      <article class="panel panel-sm">
+        <h3>Analyse d'e-mails malveillants</h3>
+        <p>Étude de cas de phishing : lecture des en-têtes, SPF, DKIM et DMARC, analyse en bac à sable avec any.run et sécurisation de la messagerie.</p>
+        <ul class="tags"><li>Phishing</li><li>SPF</li><li>DKIM</li><li>DMARC</li></ul>
+      </article>
+      <article class="panel panel-sm">
+        <h3>Installation automatisée de Nextcloud</h3>
+        <p>Déploiement de Nextcloud sur Debian 12 avec une pile LAMP, grâce à trois scripts Bash de plus en plus complets et commentés.</p>
+        <ul class="tags"><li>Bash</li><li>Debian 12</li><li>LAMP</li><li>Nextcloud</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="stage">
+    <h2>Stage de 1ère année</h2>
+    <div class="panel feature">
+      <figure class="fig">
+        <div class="frame"><img src="images/montage-realise.jpg" width="479" height="638" alt="PC monté pendant le stage chez Cybertek" loading="lazy"></div>
+      </figure>
+      <div>
+        <h3>Montage et maintenance de PC chez Cybertek</h3>
+        <p>Cinq semaines, du 25 mai au 26 juin 2026, dans l'atelier d'une boutique d'informatique et de high-tech à Pau : montage de PC sur mesure, diagnostic de pannes, maintenance de portables et missions de boutique.</p>
+        <p>Une étude de cas montre ma méthode de diagnostic, avec la panne d'un PC qui plantait en jeu.</p>
+        <div class="actions"><a class="btn btn-main" href="stage1/stage-1ere-annee.html">Lire le détail du stage</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <h2>Contact</h2>
+    <p>Une question sur mes projets ou mon stage ? Écris-moi.</p>
+    <!-- À REMPLACER : mets ta vraie adresse e-mail et tes vrais liens ci-dessous -->
+    <ul class="contact-list">
+      <li><span>E-mail</span><a href="mailto:fontaine.enzo64000@gmail.com">ton-adresse@exemple.fr</a></li>
+      <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/ton-profil">linkedin.com/in/ton-profil</a></li>
+      <li><span>GitHub</span><a href="https://github.com/ton-compte">github.com/ton-compte</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p>Enzo Fontaine, BTS SIO option SISR, lycée Saint-John Perse, Pau. Portfolio 2025 à 2026.</p></div>
+</footer>
+
+<script src="nav.js"></script>
+<script src="cursor.js"></script>
+</body>
+</html>
