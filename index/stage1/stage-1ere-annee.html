@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stage de 1ère année, Cybertek | Enzo Fontaine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ECE8E1}
+
+
+/* ===== BARRE DE NAVIGATION : à copier sur toutes les pages du portfolio ===== */
+.site-nav{position:sticky;top:0;z-index:50;background:#0F1923;border-bottom:3px solid #FF4655}
+.site-nav>ul{list-style:none;margin:0 auto;padding:.5rem 1rem;max-width:1040px;display:flex;flex-wrap:wrap;justify-content:center;gap:.15rem 1rem}
+.site-nav li{margin:0}
+.nav-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.85rem 1.2rem;border:0;background:transparent;color:#ECE8E1;font:700 1.1rem/1 "Barlow Condensed",system-ui,sans-serif;text-transform:uppercase;letter-spacing:.09em;text-decoration:none;cursor:pointer;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);transition:background .2s,color .2s}
+.nav-btn:hover{background:rgba(236,232,225,.14)}
+.nav-btn:focus-visible{outline:3px solid #ECE8E1;outline-offset:-3px}
+.nav-btn.is-active,.nav-btn[aria-current="page"]{background:#FF4655;color:#0F1923}
+.has-sub{position:relative}
+.has-sub>.nav-btn::after{content:"";width:.4rem;height:.4rem;border:solid currentColor;border-width:0 2px 2px 0;transform:translateY(-2px) rotate(45deg)}
+.sub{display:none;position:absolute;top:100%;left:0;min-width:14rem;margin:0;padding:.4rem;list-style:none;background:#0F1923;border-top:3px solid #FF4655;flex-direction:column;gap:.25rem}
+.has-sub:hover .sub,.has-sub:focus-within .sub{display:flex}
+.sub .nav-btn{width:100%;box-sizing:border-box;white-space:nowrap}
+@media (max-width:560px){
+  .site-nav{position:static}
+  .sub{position:static;margin-top:.35rem}
+}
+/* ===== FIN DE LA BARRE DE NAVIGATION ===== */
+
+/* ===== SECTION STAGE 1ÈRE ANNÉE : copier à partir d'ici ===== */
+.stage{
+  --bg:#ECE8E1; --panel:#F7F4EE; --line:#CFC9BE; --cut:14px;
+  --text:#0F1923; --muted:#4A5561; --red-text:#BD2D3B;
+  --red:#FF4655; --navy:#0F1923;
+  background:var(--bg); color:var(--text);
+  font:400 1.05rem/1.7 "Barlow",system-ui,sans-serif;
+  padding:4.5rem 1.25rem 5rem;
+}
+.stage *{box-sizing:border-box}
+.stage-wrap{max-width:1040px;margin:0 auto}
+.stage h2,.stage h3,.stage h4{font-family:"Barlow Condensed",system-ui,sans-serif;text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:1.05}
+.stage h2{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:700}
+.stage h3{font-size:2rem;font-weight:700;margin-bottom:1rem}
+.stage h3::before{content:"";display:inline-block;width:.7rem;height:.7rem;margin-right:.6rem;background:var(--red);transform:skewX(-20deg)}
+.stage h4{font-size:1.3rem;font-weight:700;margin-bottom:.4rem;color:var(--red-text)}
+.stage p{margin:0 0 1rem;max-width:66ch}
+.stage a{color:var(--red-text)}
+.stage figure{margin:0}
+.stage img{display:block;width:100%;height:auto;background:var(--panel);clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)))}
+.stage figcaption{font-size:.9rem;color:var(--muted);margin-top:.45rem}
+
+/* --- hero : la seule vraie fantaisie de la page, un halo façon boîtier RGB --- */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;margin-bottom:5rem;padding:2.5rem;background:var(--navy);color:#ECE8E1;clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,32px 100%,0 calc(100% - 32px))}
+.hero .lead{font-size:1.2rem;color:#AEB6C1;margin-top:1.25rem}
+/* effet discret : grille de points qui s'éclaire autour du curseur (position réglée par cursor.js) */
+.hero{position:relative}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,70,85,.75) 1.3px,transparent 1.8px);background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent);
+  mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent)}
+.hero>*{position:relative;z-index:1}
+.hero-photo{padding:4px;background:var(--red);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px))}
+.hero-photo img{clip-path:none}
+.specs{margin:2rem 0 0;padding:0;border-top:1px solid var(--line)}
+.specs div{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;padding:.65rem 0;border-bottom:1px solid var(--line)}
+.specs dt{color:var(--muted)}
+.hero .specs,.hero .specs div{border-color:rgba(236,232,225,.2)}
+.hero .specs dt{color:#AEB6C1}
+.specs dd{margin:0;font-weight:600}
+
+/* --- blocs --- */
+.block{margin-bottom:4.5rem}
+.duo{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.5rem;align-items:start}
+
+/* missions : texte d'un côté, photos de l'autre, en alternance */
+.mission{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;padding:2.5rem 0;border-top:1px solid var(--line)}
+.mission:nth-of-type(even) .mission-media{order:-1}
+.mission-media{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;align-items:start}
+.mission-media .wide{grid-column:1 / -1}
+.mission-media.single{grid-template-columns:1fr}
+.mission p:last-child{margin-bottom:0}
+
+/* étude de cas : journal de diagnostic */
+.case{background:var(--panel);border-left:6px solid var(--red);padding:2rem;clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)))}
+.case ol{list-style:none;margin:0 0 1.5rem;padding:0;display:grid;gap:1.25rem}
+.case li{display:grid;grid-template-columns:2.4rem 1fr;gap:1rem}
+.case li span{width:2.4rem;height:2.4rem;display:grid;place-items:center;font:700 1.2rem "Barlow Condensed",sans-serif;background:var(--navy);color:#ECE8E1;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+.case li.pivot span{background:var(--red);color:var(--navy)}
+.case li p{margin:.1rem 0 0}
+.case .takeaway{margin:0;padding-top:1.25rem;border-top:1px solid var(--line);font-weight:500}
+
+/* outils */
+.tools{display:flex;flex-wrap:wrap;gap:.6rem;margin:0;padding:0;list-style:none}
+.tools li{border:1px solid var(--line);border-left:3px solid var(--red);background:var(--panel);padding:.35rem .9rem;font-weight:600}
+
+/* semaines : 5 colonnes qui s'empilent sur mobile */
+.weeks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;counter-reset:w}
+.weeks li{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--red);padding:1rem;font-size:.95rem;line-height:1.55}
+.weeks li:nth-child(4){border-top-color:var(--navy)}
+.weeks strong{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.3rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem}
+.weeks em{display:block;font-style:normal;color:var(--muted);margin-bottom:.5rem}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.stage ul.plain{margin:0;padding-left:1.2rem}
+.stage ul.plain li{margin-bottom:.5rem}
+
+.stage a.stage-btn{display:inline-block;background:var(--red);color:var(--navy);padding:1rem 2.2rem;font:700 1.2rem "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));transition:background .2s,color .2s}
+.stage a.stage-btn:hover{background:var(--navy);color:#ECE8E1}
+.stage a.stage-btn:focus-visible{outline:3px solid var(--navy);outline-offset:-7px}
+
+@media (max-width:860px){
+  .hero,.mission,.two-col{grid-template-columns:1fr;gap:1.75rem}
+  .mission:nth-of-type(even) .mission-media{order:0}
+  .weeks{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .specs div{grid-template-columns:1fr;gap:0}
+  .duo,.weeks{grid-template-columns:1fr}
+  .case{padding:1.25rem}
+  .hero{padding:1.5rem}
+}
+/* ===== FIN DE LA SECTION ===== */
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Navigation principale">
+  <ul>
+    <li><a class="nav-btn" href="../index.html">Accueil</a></li>
+    <li><a class="nav-btn" href="cv.html">CV</a></li>
+    <li class="has-sub">
+      <button class="nav-btn is-active" type="button" aria-haspopup="true">Stage</button>
+      <ul class="sub">
+        <li><a class="nav-btn" href="stage-1ere-annee.html" aria-current="page">Stage 1ère année</a></li>
+        <li><a class="nav-btn" href="stage-2eme-annee.html">Stage 2ème année</a></li>
+      </ul>
+    </li>
+    <li><a class="nav-btn" href="projets.html">Projet</a></li>
+    <li><a class="nav-btn" href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="stage" id="stage-1">
+<div class="stage-wrap">
+
+  <header class="hero">
+    <div>
+      <h2>Stage de 1ère année : montage et maintenance de PC</h2>
+      <p class="lead">Cinq semaines dans l'atelier technique de Cybertek, boutique d'informatique et de high-tech à Pau : assembler, diagnostiquer et réparer des ordinateurs fixes et portables pour des particuliers et des entreprises.</p>
+      <dl class="specs">
+        <div><dt>Entreprise</dt><dd>Cybertek, Pau</dd></div>
+        <div><dt>Période</dt><dd>25 mai au 26 juin 2026 (5 semaines)</dd></div>
+        <div><dt>Tuteur de stage</dt><dd>M. Carrère</dd></div>
+        <div><dt>Professeur référent</dt><dd>M. Dupoy</dd></div>
+      </dl>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero-pc.jpg" width="709" height="599" alt="PC gamer sur mesure avec éclairage RGB, assemblé à l'atelier de Cybertek">
+    </div>
+  </header>
+
+  <div class="block">
+    <h3>L'entreprise</h3>
+    <p>Cybertek vend du matériel informatique, assemble des configurations sur mesure (notamment des PC gamer), et assure le diagnostic, le dépannage et la maintenance de postes fixes et portables. Face aux grandes enseignes en ligne, la boutique mise sur le conseil personnalisé et la réactivité du service après-vente.</p>
+    <p>Dès la première semaine, j'ai été intégré à l'atelier. Mes journées alternaient inventaire, montage ou diagnostic des machines, et réception des livraisons. M. Carrère m'a confié des missions de plus en plus autonomes au fil des semaines.</p>
+    <div class="duo">
+      <figure><img src="images/atelier.jpg" width="686" height="515" alt="Atelier technique de Cybertek, à l'arrière du magasin" loading="lazy"><figcaption>L'atelier technique, à l'arrière du magasin</figcaption></figure>
+      <figure><img src="images/accueil.jpg" width="689" height="517" alt="Comptoir et espace d'accueil de la boutique" loading="lazy"><figcaption>Le comptoir de la boutique</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Missions réalisées</h3>
+
+    <article class="mission">
+      <div>
+        <h4>Montage de PC de A à Z</h4>
+        <p>Carte mère, processeur et ventilation, RAM, stockage, alimentation, carte graphique, puis câblage et cable management. Le branchement du front panel a été ma difficulté du début : j'ai pris le réflexe de suivre la documentation du fabricant.</p>
+        <p>Ensuite viennent l'installation de Windows, des pilotes (chipset, GPU, RST) et des logiciels courants via Ninite.</p>
+      </div>
+      <div class="mission-media">
+        <figure><img src="images/pc-gamer.jpg" width="786" height="601" alt="PC gamer haut de gamme avec ventilateurs RGB" loading="lazy"><figcaption>Configuration gamer</figcaption></figure>
+        <figure><img src="images/cable-management.jpg" width="450" height="601" alt="Arrière d'un boîtier avec câbles rangés" loading="lazy"><figcaption>Cable management</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="mission">
+      <div>
+        <h4>Tests de stabilité</h4>
+        <p>Chaque montage est validé sous charge avec OCCT et MSI Kombustor pour vérifier le comportement du processeur et de la carte graphique, puis en conditions réelles sur plusieurs jeux vidéo.</p>
+      </div>
+      <div class="mission-media">
+        <figure><img src="images/montage-realise.jpg" width="479" height="638" alt="PC monté par Enzo pendant le stage" loading="lazy"><figcaption>Un montage que j'ai réalisé</figcaption></figure>
+        <figure><img src="images/kombustor.jpg" width="856" height="515" alt="Test de charge MSI Kombustor sur un écran" loading="lazy"><figcaption>Test MSI Kombustor</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="mission">
+      <div>
+        <h4>Diagnostic de pannes</h4>
+        <p>Ma démarche : isoler les composants un par un plutôt que multiplier les hypothèses. Contrôle des disques, de la RAM et des alimentations, recherche de malwares, réglage des ventilateurs dans le BIOS.</p>
+        <p>J'ai aussi installé l'antivirus professionnel Kaspersky sur des postes clients.</p>
+      </div>
+      <div class="mission-media">
+        <figure><img src="images/banc-de-test.jpg" width="779" height="584" alt="Configuration testée hors boîtier sur un bureau" loading="lazy"><figcaption>Test hors boîtier</figcaption></figure>
+        <figure><img src="images/testeur-alimentation.jpg" width="625" height="469" alt="Testeur d'alimentation avec écran LCD" loading="lazy"><figcaption>Testeur d'alimentation</figcaption></figure>
+        <figure class="wide"><img src="images/kaspersky.jpg" width="539" height="718" alt="Boîte de Kaspersky Plus posée sur un portable" loading="lazy" style="max-width:280px"><figcaption>Installation de Kaspersky</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="mission">
+      <div>
+        <h4>Maintenance des portables</h4>
+        <p>Démontage soigné, avec batterie, pavé tactile et clavier débranchés avant toute intervention. J'ai changé de la RAM, remplacé des disques durs par des SSD, des batteries et une dalle d'écran, et diagnostiqué un écran qui tremble (nappe vidéo ou dalle).</p>
+      </div>
+      <div class="mission-media">
+        <figure><img src="images/portable-acer.jpg" width="827" height="620" alt="Intérieur d'un portable Acer avec sa batterie" loading="lazy"><figcaption>Intérieur d'un portable Acer</figcaption></figure>
+        <figure><img src="images/portable-demonte.jpg" width="827" height="620" alt="Portable démonté sur l'établi" loading="lazy"><figcaption>Portable démonté sur l'établi</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="mission">
+      <div>
+        <h4>Missions annexes</h4>
+        <p>Inventaire quotidien, gestion des livraisons, affiches produits sur Canva, devis d'un NAS pour un client, remise en service d'imprimantes, activation de licences Office et sauvegarde des données clients avant intervention.</p>
+      </div>
+      <div class="mission-media">
+        <figure><img src="images/boutique.jpg" width="842" height="631" alt="Rayons de la boutique et vitrine de PC" loading="lazy"><figcaption>Les rayons de la boutique</figcaption></figure>
+        <figure><img src="images/poste-stagiaire.jpg" width="631" height="578" alt="Poste de travail du stagiaire" loading="lazy"><figcaption>Mon poste de stagiaire</figcaption></figure>
+      </div>
+    </article>
+  </div>
+
+  <div class="block">
+    <h3>Étude de cas : un PC qui plante sur Valorant</h3>
+    <div class="case">
+      <ol>
+        <li><span>1</span><div><h4>Hypothèse logicielle</h4><p>Le PC d'un client plante en jeu. Je réinstalle Windows et les pilotes.</p></div></li>
+        <li><span>2</span><div><h4>Blocage</h4><p>La réinstallation échoue : le disque n'est plus détecté correctement et le Secure Boot reste grisé dans le BIOS.</p></div></li>
+        <li class="pivot"><span>3</span><div><h4>Nouvelle hypothèse</h4><p>Ces symptômes ne collent pas avec un problème logiciel. La carte mère est défaillante.</p></div></li>
+        <li><span>4</span><div><h4>Résolution</h4><p>Après remplacement de la carte mère, je réinstalle Windows et désactive plusieurs programmes inutiles au démarrage. Les plantages ont disparu.</p></div></li>
+      </ol>
+      <p class="takeaway">Ce que j'en retiens : ne pas s'arrêter à la première hypothèse, et remettre un diagnostic en question quand les faits ne correspondent pas.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Outils utilisés</h3>
+    <ul class="tools">
+      <li>OCCT</li><li>MSI Kombustor</li><li>CrystalDiskInfo</li><li>MemTest</li>
+      <li>DiskPart</li><li>Malwarebytes</li><li>ADS Revealer</li><li>Kaspersky</li>
+      <li>Ninite</li><li>BIOS / UEFI</li><li>Windows</li><li>Canva</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Déroulé des 5 semaines</h3>
+    <ol class="weeks">
+      <li><strong>Semaine 1</strong><em>Prise en main</em>Tests de PC, diagnostic malware, Kaspersky, démontage d'un portable, premier montage complet. Difficulté : le front panel, résolue en cherchant et en questionnant l'équipe.</li>
+      <li><strong>Semaine 2</strong><em>Montage et logiciels</em>PC haut de gamme, Windows et Ninite, changement de dalle. Disque non détecté résolu avec le pilote RST sur clé USB, jeu plafonné à 70 fps débloqué dans le panneau Nvidia.</li>
+      <li><strong>Semaine 3</strong><em>Portables et alimentations</em>Batterie, passage HDD vers SSD, ajout de RAM, MemTest, test d'alimentation, PC qui ne s'allume plus.</li>
+      <li><strong>Semaine 4</strong><em>Diagnostics complexes</em>PC bloqué au BIOS, freezes, CrystalDiskInfo, DiskPart, et l'étude de cas Valorant avec remplacement de carte mère.</li>
+      <li><strong>Semaine 5</strong><em>Missions clients</em>Batteries et RAM sur portables, devis NAS, imprimante remise en service, licence Office, sauvegarde de données.</li>
+    </ol>
+  </div>
+
+  <div class="block two-col">
+    <div>
+      <h3>Compétences acquises</h3>
+      <ul class="plain">
+        <li>Montage complet d'un ordinateur dans les règles de l'art</li>
+        <li>Utilisation d'outils professionnels de diagnostic et de test</li>
+        <li>Méthode de résolution de panne : isoler les composants, remettre en question les hypothèses</li>
+        <li>Gestion des stocks et des livraisons</li>
+        <li>Restitution d'un diagnostic au client</li>
+        <li>Autonomie dans la recherche technique (documentation constructeur, tutoriels)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Bilan personnel</h3>
+      <p>J'ai apprécié la diversité des pannes (aucune machine n'était identique), l'autonomie progressive et la confiance de mon tuteur. Les tâches répétitives comme l'inventaire quotidien m'ont paru moins stimulantes, même si elles m'ont appris le fonctionnement d'un commerce.</p>
+      <p>Ce stage conforte mon intérêt pour l'infrastructure et les systèmes, en cohérence avec l'option SISR.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Lien avec le référentiel BTS SIO</h3>
+    <p>Bloc de compétences « Support et mise à disposition de services informatiques » : gestion du patrimoine informatique matériel et logiciel, réponse aux incidents et aux demandes d'assistance, mise à disposition d'un service informatique pour un utilisateur.</p>
+  </div>
+
+  <a class="stage-btn" href="documents/Rapport_de_stage_Enzo_FONTAINE.pdf" download>Télécharger le rapport de stage (PDF)</a>
+
+</div>
+</section>
+<script src="../cursor.js"></script>
+<script src="../nav.js"></script>
+</body>
+</html>
