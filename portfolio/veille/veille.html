@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veille informatique | Enzo Fontaine</title>
+<meta name="description" content="Veille informatique d'Enzo Fontaine, BTS SIO SISR : la haute disponibilité des infrastructures réseau (pannes, protocoles, outils, réglementation).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* En-tête : grille de points qui s'éclaire autour du curseur (réglée par cursor.js) */
+.hero{display:block;position:relative;--cut:40px;padding:4rem 3rem 4.25rem;margin-bottom:3rem}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,70,85,.75) 1.3px,transparent 1.8px);background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent);
+  mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent)}
+.hero-content{position:relative}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem)}
+.hero .role{font-size:clamp(1.2rem,2.6vw,1.7rem);margin:1rem 0 1.25rem}
+.hero .lead{max-width:56ch}
+@media (max-width:860px){.hero{padding:2.5rem 1.75rem 2.75rem}}
+
+/* Sommaire */
+.toc{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;margin:0 0 3.5rem;padding:0}
+.toc a{display:block;padding:.55rem 1rem;background:var(--paper);color:var(--ink);text-decoration:none;font:700 1.02rem/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;box-shadow:inset 0 -3px 0 var(--red)}
+.toc a:hover{background:var(--navy);color:var(--sand)}
+
+/* Grilles de cartes */
+.v-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem}
+.v-grid .card ul,.v-grid .panel ul{margin:0;padding:0;list-style:none}
+.v-grid .card li,.v-grid .panel li{position:relative;padding-left:1.2rem;margin-bottom:.5rem;font-size:.98rem}
+.v-grid .card li::before,.v-grid .panel li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--red)}
+.v-grid .panel li{color:var(--soft)}
+.v-grid .card h3{margin-bottom:.8rem}
+
+/* Disponibilité */
+.v-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:1.5rem}
+.v-stat{background:var(--navy);color:var(--sand);padding:1.25rem 1rem;text-align:center;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.v-stat b{display:block;font:700 2.2rem/1 "Barlow Condensed",sans-serif;color:var(--red);letter-spacing:.02em}
+.v-stat span{font-size:.92rem;color:var(--soft)}
+
+/* Tableaux */
+.v-table{overflow-x:auto}
+.v-table table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:620px}
+.v-table th{background:var(--navy);color:var(--sand);text-align:left;padding:.75rem .9rem;font:700 1.02rem/1.2 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;border-bottom:3px solid var(--red)}
+.v-table td{padding:.75rem .9rem;background:var(--paper);border-bottom:1px solid var(--line-light);vertical-align:top;line-height:1.5}
+.v-table td:first-child{font-weight:600}
+.v-note{font-size:.95rem;color:var(--soft-ink);margin:1rem 0 0;max-width:none}
+
+/* Schéma */
+.v-diagram{margin:0;background:var(--paper);padding:1.25rem;border-top:4px solid var(--red)}
+.v-diagram svg{display:block;width:100%;max-width:820px;height:auto;margin:0 auto}
+.v-diagram figcaption{text-align:center;font-size:.92rem;color:var(--soft-ink);margin-top:.75rem}
+
+/* Chronologie */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 2rem}
+.filters button{border:0;cursor:pointer;padding:.65rem 1.1rem;background:var(--paper);color:var(--ink);font:700 1.02rem/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;box-shadow:inset 0 0 0 2px var(--navy)}
+.filters button:hover{background:var(--line-light)}
+.filters button[aria-pressed="true"]{background:var(--navy);color:var(--sand);box-shadow:inset 0 -4px 0 var(--red)}
+.timeline{list-style:none;margin:0;padding:0 0 0 1.75rem;border-left:3px solid var(--navy)}
+.event{position:relative;margin-bottom:1.5rem}
+.event::before{content:"";position:absolute;left:calc(-1.75rem - 9px);top:1.7rem;width:15px;height:15px;background:var(--red);border:3px solid var(--sand);transform:rotate(45deg)}
+.event[hidden]{display:none}
+.event .panel{padding:1.6rem 1.6rem 1.4rem}
+.event .date{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:.35rem;font:700 1.05rem/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--red)}
+.event .badge{background:var(--red);color:var(--navy);padding:.2rem .55rem;font-size:.85rem}
+.event h3{font-size:1.5rem;margin-bottom:.6rem}
+.event p{font-size:.98rem}
+.event .lesson{margin:1rem 0 0;padding-top:.8rem;border-top:1px solid var(--line-dark);color:var(--sand);font-size:.98rem;max-width:none}
+.event .lesson b{color:var(--red);font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem}
+
+/* Sources */
+.sources{margin:0;padding:0;list-style:none;border-top:2px solid var(--navy)}
+.sources li{padding:.6rem 0;border-bottom:1px solid var(--line-light);font-size:.98rem}
+.sources a{text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:3px;font-weight:500}
+.v-concl{margin-top:1.5rem;max-width:none}
+
+@media (max-width:560px){
+  .v-stats{grid-template-columns:1fr}
+  .timeline{padding-left:1.25rem}
+  .event::before{left:calc(-1.25rem - 9px)}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Navigation principale">
+  <ul>
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../cv.html">CV</a></li>
+    <li class="has-menu">
+      <button type="button" aria-expanded="false" aria-controls="menu-stage">Stage <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+      <ul class="submenu" id="menu-stage">
+        <li><a href="../stage1/stage-1ere-annee.html">Stage 1ère année</a></li>
+        <li><a href="../stage-2eme-annee.html">Stage 2ème année</a></li>
+      </ul>
+    </li>
+    <li><a href="../index.html#projets">Projet</a></li>
+    <li><a href="veille.html" aria-current="page">Veille</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <header class="panel hero">
+    <div class="hero-content">
+      <h1>Veille informatique</h1>
+      <p class="role">La haute disponibilité des infrastructures réseau</p>
+      <p class="lead">Enjeux, protocoles et solutions. Pannes majeures, évolutions des outils (HAProxy, keepalived, Proxmox, Windows Server, BIND), sécurité et réglementation : ce que j'ai suivi d'octobre à novembre 2026 et ce que j'en retiens.</p>
+    </div>
+  </header>
+
+  <ul class="toc" aria-label="Sommaire">
+    <li><a href="#enjeux">Enjeux</a></li>
+    <li><a href="#notions">Notions clés</a></li>
+    <li><a href="#protocoles">Protocoles</a></li>
+    <li><a href="#archi">Architecture</a></li>
+    <li><a href="#chrono">Chronologie</a></li>
+    <li><a href="#pannes">Pannes</a></li>
+    <li><a href="#outils">Outils</a></li>
+    <li><a href="#reglementation">Réglementation</a></li>
+    <li><a href="#bilan">Bilan</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+
+  <section class="block" id="enjeux">
+    <h2>Enjeux et périmètre</h2>
+    <div class="v-grid">
+      <article class="card">
+        <h3>Pourquoi la haute disponibilité ?</h3>
+        <ul>
+          <li>Supprimer les points de défaillance uniques (SPOF) : liens, équipements, alimentation, DNS, authentification.</li>
+          <li>Respecter les SLA et limiter les pertes d'exploitation.</li>
+          <li>Assurer la continuité lors des pannes comme lors des maintenances planifiées.</li>
+          <li>Répondre aux exigences de résilience (NIS2, DORA).</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Axes surveillés</h3>
+        <ul>
+          <li><b>Incidents</b> : opérateurs, cloud, SaaS.</li>
+          <li><b>Outils</b> : HAProxy, keepalived, Proxmox VE, clustering Windows Server 2025.</li>
+          <li><b>Sécurité</b> : vulnérabilités de BIND (DNS), correctifs ayant un impact sur la disponibilité.</li>
+          <li><b>Réglementation</b> : loi Résilience, NIS2, référentiel ANSSI.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Lien avec ma formation (SISR)</h3>
+        <ul>
+          <li>Répartition de charge HAProxy + serveurs Apache.</li>
+          <li>Clustering de basculement sous Windows Server 2025.</li>
+          <li>Redondance DNS avec BIND.</li>
+          <li>Virtualisation et HA avec Proxmox.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="notions">
+    <h2>Notions clés</h2>
+    <div class="v-stats">
+      <div class="v-stat"><b>99,9 %</b><span>≈ 8 h 45 d'arrêt par an</span></div>
+      <div class="v-stat"><b>99,99 %</b><span>≈ 53 min par an</span></div>
+      <div class="v-stat"><b>99,999 %</b><span>≈ 5 min par an</span></div>
+    </div>
+    <div class="v-grid">
+      <article class="panel panel-sm">
+        <h3>Modes de fonctionnement</h3>
+        <ul>
+          <li><b>Actif / passif</b> : un nœud sert, l'autre attend et prend le relais (VRRP, cluster de basculement).</li>
+          <li><b>Actif / actif</b> : tous les nœuds servent, la charge est répartie (HAProxy, ECMP).</li>
+          <li><b>N+1</b> : un nœud de secours pour N nœuds actifs.</li>
+        </ul>
+      </article>
+      <article class="panel panel-sm">
+        <h3>Détection et protection</h3>
+        <ul>
+          <li><b>Heartbeat</b> et health checks pour détecter la panne.</li>
+          <li><b>Quorum</b> : majorité nécessaire pour décider.</li>
+          <li><b>Fencing / STONITH</b> : isoler le nœud douteux.</li>
+          <li><b>Split-brain</b> : deux nœuds se croient maîtres, risque majeur à éviter.</li>
+        </ul>
+      </article>
+      <article class="panel panel-sm">
+        <h3>Indicateurs</h3>
+        <ul>
+          <li><b>RTO</b> : durée maximale d'interruption acceptable.</li>
+          <li><b>RPO</b> : perte de données maximale acceptable.</li>
+          <li><b>MTTR / MTBF</b> : temps de réparation / entre pannes.</li>
+          <li><b>SLA</b> : engagement contractuel de disponibilité.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="protocoles">
+    <h2>Protocoles et solutions</h2>
+    <div class="v-table">
+      <table>
+        <thead><tr><th>Couche</th><th>Protocole / solution</th><th>Rôle</th><th>Points d'attention</th></tr></thead>
+        <tbody>
+          <tr><td>Liens (L2)</td><td>LACP (802.3ad), STP / RSTP</td><td>Agrégation de liens, chemins de secours sans boucle</td><td>Temps de convergence, configuration identique des deux côtés</td></tr>
+          <tr><td>Passerelle (L3)</td><td>VRRP, HSRP, CARP, keepalived</td><td>IP virtuelle partagée, bascule automatique de la passerelle</td><td>Priorités, authentification des annonces, risque de double maître</td></tr>
+          <tr><td>Routage</td><td>OSPF, BGP, ECMP, BFD</td><td>Chemins multiples, reconvergence rapide, détection de panne de lien</td><td>Filtrage des routes, erreurs de configuration propagées</td></tr>
+          <tr><td>Services (L4-L7)</td><td>HAProxy, Nginx, load balancers</td><td>Répartition de charge, health checks, retrait des serveurs défaillants</td><td>Le répartiteur lui-même doit être redondant (keepalived)</td></tr>
+          <tr><td>DNS</td><td>BIND maître / esclave, plusieurs serveurs NS, anycast</td><td>Résolution maintenue en cas de panne d'un serveur</td><td>Service critique : correctifs de sécurité fréquents</td></tr>
+          <tr><td>Systèmes</td><td>Cluster de basculement Windows Server, Proxmox HA, Ceph, S2D</td><td>Redémarrage ou migration automatique des services et des VM sur un autre nœud</td><td>Quorum, fencing, stockage partagé, mises à jour en rolling</td></tr>
+          <tr><td>Sites / cloud</td><td>Multi-zones (AZ), multi-régions, DNS failover</td><td>Résistance à la perte d'un site complet</td><td>Dépendances cachées (IAM, DNS, alimentation) entre zones</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" id="archi">
+    <h2>Architecture de référence</h2>
+    <figure class="v-diagram">
+      <svg viewBox="0 0 820 400" xmlns="http://www.w3.org/2000/svg" font-family="Barlow,Arial,sans-serif" font-size="15" role="img" aria-label="Schéma : clients, IP virtuelle VRRP, deux HAProxy, trois serveurs Apache, stockage répliqué">
+        <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0F1923"/></marker></defs>
+        <rect x="320" y="10" width="180" height="42" fill="#FF4655"/><text x="410" y="37" text-anchor="middle" fill="#0F1923" font-weight="700">Clients / Internet</text>
+        <line x1="410" y1="52" x2="410" y2="80" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <rect x="270" y="80" width="280" height="40" fill="none" stroke="#BD2D3B" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="410" y="105" text-anchor="middle" fill="#BD2D3B" font-weight="700">IP virtuelle (VIP) : VRRP / keepalived</text>
+        <rect x="190" y="150" width="190" height="52" fill="#0F1923"/><text x="285" y="173" text-anchor="middle" fill="#ECE8E1" font-weight="700">HAProxy 1</text><text x="285" y="192" text-anchor="middle" fill="#FF4655" font-size="12">MASTER</text>
+        <rect x="440" y="150" width="190" height="52" fill="#2B3948"/><text x="535" y="173" text-anchor="middle" fill="#ECE8E1" font-weight="700">HAProxy 2</text><text x="535" y="192" text-anchor="middle" fill="#A9B4C2" font-size="12">BACKUP</text>
+        <line x1="380" y1="176" x2="440" y2="176" stroke="#BD2D3B" stroke-width="2" stroke-dasharray="5 4"/><text x="410" y="168" text-anchor="middle" font-size="11" fill="#BD2D3B">heartbeat</text>
+        <line x1="410" y1="120" x2="285" y2="150" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="410" y1="120" x2="535" y2="150" stroke="#0F1923" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+        <line x1="285" y1="202" x2="200" y2="250" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="285" y1="202" x2="420" y2="250" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="285" y1="202" x2="640" y2="250" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="535" y1="202" x2="200" y2="250" stroke="#0F1923" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+        <line x1="535" y1="202" x2="420" y2="250" stroke="#0F1923" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+        <line x1="535" y1="202" x2="640" y2="250" stroke="#0F1923" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+        <rect x="110" y="250" width="180" height="48" fill="#0F1923"/><text x="200" y="279" text-anchor="middle" fill="#ECE8E1" font-weight="700">Apache 1</text>
+        <rect x="330" y="250" width="180" height="48" fill="#0F1923"/><text x="420" y="279" text-anchor="middle" fill="#ECE8E1" font-weight="700">Apache 2</text>
+        <rect x="550" y="250" width="180" height="48" fill="#0F1923"/><text x="640" y="279" text-anchor="middle" fill="#ECE8E1" font-weight="700">Apache 3</text>
+        <line x1="200" y1="298" x2="330" y2="340" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="420" y1="298" x2="420" y2="340" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="640" y1="298" x2="510" y2="340" stroke="#0F1923" stroke-width="2" marker-end="url(#ar)"/>
+        <rect x="300" y="340" width="240" height="48" fill="#FF4655"/><text x="420" y="369" text-anchor="middle" fill="#0F1923" font-weight="700">Stockage / BDD répliqués</text>
+      </svg>
+      <figcaption>Deux répartiteurs HAProxy partageant une IP virtuelle, plusieurs serveurs web, stockage redondant : aucun point de défaillance unique à chaque étage.</figcaption>
+    </figure>
+  </section>
+
+  <section class="block" id="chrono">
+    <h2>Chronologie de la veille</h2>
+    <div class="filters" id="filters" role="group" aria-label="Filtrer par catégorie">
+      <button type="button" data-f="all" aria-pressed="true">Tout</button>
+      <button type="button" data-f="panne" aria-pressed="false">Pannes</button>
+      <button type="button" data-f="outil" aria-pressed="false">Outils</button>
+      <button type="button" data-f="secu" aria-pressed="false">Sécurité</button>
+      <button type="button" data-f="regl" aria-pressed="false">Réglementation</button>
+    </div>
+    <ol class="timeline">
+
+      <li class="event" data-cat="regl">
+        <div class="panel panel-sm">
+          <div class="date">6 octobre 2026</div>
+          <h3>Loi Résilience (NIS2) : retrait de l'ordre du jour</h3>
+          <p>Le texte qui transpose NIS2 en France a été sorti du programme de l'Assemblée nationale le 6 octobre, sans nouvelle date, avant d'être reprogrammé pour le 9 novembre. La France est en retard sur le calendrier européen.</p>
+          <p class="lesson"><b>À retenir :</b> la continuité d'activité devient une obligation pour des milliers d'organisations, pas seulement pour les opérateurs vitaux.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="outil">
+        <div class="panel panel-sm">
+          <div class="date">13 octobre 2026 <span class="badge">Windows Server</span></div>
+          <h3>Windows Server 2025 : mise à jour cumulative d'octobre (KB5126646)</h3>
+          <p>Correctifs de sécurité et amélioration des connexions Netlogon entre serveurs membres et contrôleurs de domaine plus anciens. La mise à jour limite aussi la mémoire utilisée par l'Endpoint Mapper, ce qui a provoqué des instabilités sur des serveurs Exchange. Microsoft a publié un correctif hors cycle le 26 octobre (KB5134137), puis la mise à jour de novembre le 10 (KB5131080).</p>
+          <p class="lesson"><b>À retenir :</b> un correctif peut dégrader un service ; on met à jour nœud par nœud et on teste avant de basculer.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="outil">
+        <div class="panel panel-sm">
+          <div class="date">14 octobre 2026 <span class="badge">HAProxy</span></div>
+          <h3>HAProxy 3.4.7 et correctifs des branches LTS</h3>
+          <p>La branche 3.4 (sortie le 3 juin 2026) est LTS. Les branches 3.2, 3.0, 2.8 et 2.6 restent supportées ; la 3.3 s'arrête le 31 mars 2027.</p>
+          <p class="lesson"><b>À retenir :</b> en production, choisir une branche LTS et suivre son cycle de correctifs.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="outil">
+        <div class="panel panel-sm">
+          <div class="date">19 – 20 octobre 2026 <span class="badge">Windows Server</span></div>
+          <h3>Windows Server 2025 : Quick Machine Recovery</h3>
+          <p>Avec la mise à jour d'octobre, la récupération rapide de machine, qui permet de réparer un système qui ne démarre plus via Windows Update, est disponible sur Windows Server 2025. Elle est désactivée par défaut.</p>
+          <p class="lesson"><b>À retenir :</b> la haute disponibilité couvre aussi la rapidité de remise en état d'un nœud défaillant.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="panne">
+        <div class="panel panel-sm">
+          <div class="date">20 octobre 2026 <span class="badge">Cloud</span></div>
+          <h3>Google Cloud Londres : coupure électrique dans la zone europe-west2-b</h3>
+          <p>Une perte d'alimentation secteur dans le datacenter de la zone b a touché des dizaines de produits (38 listés par Google) : applications bancaires, courrier, visioconférence des tribunaux. D'après Google, un défaut de configuration d'un automate (PLC) a empêché les groupes électrogènes de démarrer ; les batteries des onduleurs se sont ensuite vidées. Retour à la normale en environ six à huit heures selon les sources. Certains clients répartis sur d'autres zones ont aussi subi des erreurs.</p>
+          <p class="lesson"><b>À retenir :</b> le multi-zones ne protège que s'il n'existe aucune dépendance commune cachée ; les secours électriques doivent être testés en conditions réelles.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="panne">
+        <div class="panel panel-sm">
+          <div class="date">21 octobre 2026 <span class="badge">Opérateur</span></div>
+          <h3>Panne nationale du réseau mobile Orange / Sosh</h3>
+          <p>Appels, SMS et données mobiles coupés dans toute la France d'environ 11 h 20 à 21 h, soit près de dix heures. Orange parle d'une défaillance d'un équipement de son cœur de réseau mobile. C'est la troisième panne nationale de l'opérateur en 2026. Une migration vers la 5G SA a été évoquée par la presse, sans confirmation officielle.</p>
+          <p class="lesson"><b>À retenir :</b> la redondance matérielle ne suffit pas si un changement est appliqué simultanément aux deux systèmes sans retour arrière possible.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="secu">
+        <div class="panel panel-sm">
+          <div class="date">21 octobre 2026 <span class="badge">DNS</span></div>
+          <h3>BIND 9.20.30 et 9.21.27 : quatre failles de gravité élevée</h3>
+          <p>L'ISC a publié sa quatrième mise à jour de sécurité mensuelle de l'année, corrigeant quatre vulnérabilités notées « High », dont une pouvant mener à une exécution de code à distance, sans exploitation active connue. Debian a publié un correctif pour bind9 le 27 octobre (déni de service, empoisonnement de cache). Le Centre canadien pour la cybersécurité a émis un avis le 21 octobre.</p>
+          <p class="lesson"><b>À retenir :</b> un DNS redondant doit aussi être maintenu à jour ; deux serveurs vulnérables ne forment pas une haute disponibilité.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="panne">
+        <div class="panel panel-sm">
+          <div class="date">12 – 13 novembre 2026 <span class="badge">SaaS</span></div>
+          <h3>Panne mondiale de Microsoft 365 (Outlook, Teams, Copilot)</h3>
+          <p>Interruption de plus de douze heures avec des signalements dans 74 pays et territoires : banques, administrations, tribunaux touchés. Microsoft n'a pas constaté de cyberattaque et n'avait pas encore publié la cause racine. C'est le deuxième incident majeur de l'année sur ce service.</p>
+          <p class="lesson"><b>À retenir :</b> dépendre d'un seul fournisseur SaaS expose à un arrêt total ; prévoir un mode dégradé et un canal de communication alternatif.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="outil">
+        <div class="panel panel-sm">
+          <div class="date">Rappel · 22 juin – 20 juillet 2026 <span class="badge">keepalived</span></div>
+          <h3>keepalived 2.4 : authentification HMAC pour VRRP</h3>
+          <p>La version 2.4.0 introduit <i>auth_hmac</i>, une extension qui signe chaque annonce VRRP avec un HMAC-SHA256, avec un mode permissif pour migrer un cluster en production. La 2.4.3 (20 juillet) corrige un cas où un saut d'horloge pouvait provoquer un double maître durable.</p>
+          <p class="lesson"><b>À retenir :</b> les annonces VRRP non authentifiées peuvent être usurpées ; la synchronisation d'horloge compte pour la HA.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="outil">
+        <div class="panel panel-sm">
+          <div class="date">Rappel · 21 mai 2026 <span class="badge">Proxmox</span></div>
+          <h3>Proxmox VE 9.2 : HA et équilibrage dynamique</h3>
+          <p>Équilibrage dynamique de charge pour les invités inscrits en HA, commandes <i>arm / disarm</i> du gestionnaire HA pour réaliser des maintenances sans bascules ni fencing indésirables, Ceph Tentacle 20.2, noyau Linux 7.0. Les invités doivent être inscrits en HA pour être équilibrés automatiquement.</p>
+          <p class="lesson"><b>À retenir :</b> la maintenance planifiée est un moment à risque pour un cluster ; les outils l'intègrent désormais explicitement.</p>
+        </div>
+      </li>
+
+      <li class="event" data-cat="regl">
+        <div class="panel panel-sm">
+          <div class="date">Rappel · mars 2026 <span class="badge">ANSSI</span></div>
+          <h3>Référentiel Cyber France (ReCyF)</h3>
+          <p>L'ANSSI a publié ce référentiel qui décline les exigences de NIS2 en recommandations opérationnelles, dont les sauvegardes, la continuité, la reprise d'activité, la gestion de crise et les exercices.</p>
+          <p class="lesson"><b>À retenir :</b> les tests de bascule et de restauration font partie des attentes, pas seulement la redondance.</p>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <section class="block" id="pannes">
+    <h2>Analyse comparée des pannes</h2>
+    <div class="v-table">
+      <table>
+        <thead><tr><th>Incident</th><th>Durée</th><th>Cause annoncée</th><th>Maillon faible</th><th>Mesure de HA / continuité</th></tr></thead>
+        <tbody>
+          <tr><td>Google Cloud Londres<br>20/10/2026</td><td>≈ 6 à 8 h</td><td>Perte d'alimentation secteur ; groupes électrogènes non démarrés (défaut de configuration d'un automate)</td><td>Alimentation de secours d'une zone ; dépendances entre zones</td><td>Répartition réelle sur plusieurs zones, tests réguliers des secours électriques</td></tr>
+          <tr><td>Orange / Sosh<br>21/10/2026</td><td>≈ 10 h</td><td>Défaillance d'un équipement du cœur de réseau mobile (migration 5G SA évoquée, non confirmée)</td><td>Cœur de réseau, changement synchronisé</td><td>Déploiement progressif, retour arrière testé, redondance géographique du cœur</td></tr>
+          <tr><td>Microsoft 365<br>12-13/11/2026</td><td>&gt; 12 h</td><td>Non publiée à la date de consultation ; pas de cyberattaque constatée</td><td>Dépendance à un fournisseur SaaS unique</td><td>Plan de continuité hors du service (communication alternative, mode dégradé)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="v-note">Constat commun : ces incidents ne sont pas des attaques, mais des défauts de configuration ou de matériel dans un composant partagé.</p>
+  </section>
+
+  <section class="block" id="outils">
+    <h2>État des outils suivis</h2>
+    <div class="v-table">
+      <table>
+        <thead><tr><th>Outil</th><th>Version / date</th><th>Intérêt pour la HA</th></tr></thead>
+        <tbody>
+          <tr><td>HAProxy</td><td>3.4.7 (14/10/2026), branche 3.4 LTS</td><td>Répartition de charge, health checks, redondance avec keepalived</td></tr>
+          <tr><td>keepalived</td><td>2.4.x (été 2026)</td><td>VRRP, IP virtuelle, auth_hmac</td></tr>
+          <tr><td>Proxmox VE</td><td>9.2 (21/05/2026)</td><td>HA des VM, équilibrage dynamique, arm / disarm</td></tr>
+          <tr><td>Windows Server 2025</td><td>Mise à jour de novembre : KB5131080 (10/11/2026)</td><td>Cluster de basculement, S2D Campus Cluster, mises à jour en rolling</td></tr>
+          <tr><td>BIND 9</td><td>9.20.30 / 9.21.27 (21/10/2026)</td><td>DNS redondant ; correctifs de sécurité mensuels</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" id="reglementation">
+    <h2>Cadre réglementaire</h2>
+    <div class="v-grid">
+      <article class="card">
+        <h3>NIS2 et loi Résilience</h3>
+        <p>NIS2 élargit le périmètre à de nombreux secteurs et impose analyse de risques, gestion des incidents, continuité d'activité, sauvegardes et gestion de crise. La France n'a pas transposé la directive dans les délais ; le projet de loi regroupe aussi DORA et REC.</p>
+      </article>
+      <article class="card">
+        <h3>Ce que cela implique pour un administrateur</h3>
+        <ul>
+          <li>Documenter les procédures de reprise (PCA / PRA).</li>
+          <li>Tester régulièrement sauvegardes et bascules.</li>
+          <li>Maîtriser la chaîne de fournisseurs.</li>
+          <li>Savoir notifier un incident significatif.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="bilan">
+    <h2>Bilan de la veille</h2>
+    <div class="v-grid">
+      <article class="panel panel-sm"><h3>Concevoir</h3><ul><li>Supprimer les SPOF à chaque couche, y compris alimentation, DNS et authentification.</li><li>Vérifier l'indépendance réelle des zones.</li><li>Prévoir un accès d'urgence hors bande (4G / 5G).</li></ul></article>
+      <article class="panel panel-sm"><h3>Exploiter</h3><ul><li>Surveiller avec des health checks.</li><li>Tester régulièrement les bascules et les secours.</li><li>Déployer les changements par étapes avec retour arrière.</li></ul></article>
+      <article class="panel panel-sm"><h3>Maintenir</h3><ul><li>Appliquer les correctifs nœud par nœud.</li><li>Suivre les cycles LTS.</li><li>Lire les post-mortems publiés après incident.</li></ul></article>
+    </div>
+    <p class="v-concl"><strong>Conclusion :</strong> sur la période, les trois grandes pannes viennent d'un composant partagé ou d'un changement mal maîtrisé plutôt que d'une absence de redondance. La haute disponibilité repose autant sur l'architecture que sur les tests, la gestion du changement et la documentation.</p>
+  </section>
+
+  <section class="block" id="sources">
+    <h2>Sources consultées</h2>
+    <ul class="sources">
+      <li><a href="https://www.theregister.com/a/5307739">The Register : Google Cloud Londres, groupes électrogènes non démarrés</a></li>
+      <li><a href="https://statusgator.com/blog/google-cloud-outage-on-october-20-2026-a-europe-west2-power-event-and-171-possibly-affected-services/">StatusGator : Google Cloud, 20 octobre 2026</a></li>
+      <li><a href="https://selectra.info/telecom/actualites/marche/panne-orange-octobre-2026-reseau-retabli-cause">Selectra : panne Orange d'octobre 2026</a></li>
+      <li><a href="https://www.it-connect.fr/panne-orange-sosh-coeur-reseau-5g-migration/">IT-Connect : panne Orange / Sosh et cœur de réseau</a></li>
+      <li><a href="https://www.thenews.com.pk/latest/1423454-microsoft-outage-leaves-outlook-teams-copilot-disrupted-for-11-hours-heres-what-happened">The News : panne Microsoft du 12 novembre 2026</a></li>
+      <li><a href="https://aljazeera.com/news/2026/11/13/microsoft-hit-by-global-outages-what-happened-and-why">Al Jazeera : Microsoft hit by global outages</a></li>
+      <li><a href="https://www.versio.io/es/product-release-end-of-life-eol-haproxy-haproxy.html">Versio.io : versions et fin de vie de HAProxy</a></li>
+      <li><a href="https://keepalived.org/release-notes/Release-2.4.0/">keepalived : release 2.4.0</a> et <a href="https://keepalived.org/release-notes/Release-2.4.3/">2.4.3</a></li>
+      <li><a href="https://www.proxmox.com/en/about/company-details/press-releases/proxmox-virtual-environment-9-2">Proxmox : communiqué VE 9.2</a></li>
+      <li><a href="https://www.datazone.de/en/news/proxmox-ve-9-2-release/">DataZone : Proxmox VE 9.2</a></li>
+      <li><a href="https://support.microsoft.com/help/5126646">Microsoft : KB5126646 (13/10/2026)</a>, <a href="https://support.microsoft.com/en-us/help/5134137">KB5134137 (26/10/2026)</a>, <a href="https://support.microsoft.com/en-us/help/5131080">KB5131080 (10/11/2026)</a></li>
+      <li><a href="https://www.bleepingcomputer.com/news/microsoft/windows-server-2025-gets-support-for-quick-machine-recovery">BleepingComputer : Quick Machine Recovery sur Windows Server 2025</a></li>
+      <li><a href="https://cyber.gc.ca/fr/alertes-avis/bulletin-securite-isc-bind-av26-1072">Centre canadien pour la cybersécurité : avis ISC BIND AV26-1072</a></li>
+      <li><a href="https://www.linuxcompatible.org/story/isc-releases-bind-92030-and-92127-patching-four-flaws-including-an-rce/">LinuxCompatible : BIND 9.20.30 et 9.21.27</a></li>
+      <li><a href="https://lwn.net/Articles/1103281/">LWN : Debian DLA-4865-1 (bind9)</a></li>
+      <li><a href="https://www.leto.legal/news/nis-2-projet-loi-resilience-assemblee-nationale-9-novembre-2026">Leto : loi Résilience à l'Assemblée nationale</a></li>
+      <li><a href="https://www.openkritis.de/eu/eu-nis-2-france.html">OpenKritis : NIS2 en France</a></li>
+      <li><a href="https://www.rsm.global/france/fr/node/1195">RSM : ANSSI et Référentiel Cyber France</a></li>
+      <li><a href="https://www.optinoc.com/en/blog/redondance-reseau-haute-disponibilite/">Optinoc : redondance réseau et haute disponibilité</a></li>
+      <li><a href="https://docs.ovhcloud.com/fr/guides/public-cloud/cross-functional/deployments-modes-reference-architecture">OVHcloud : résilience multi-AZ</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p>Enzo Fontaine, BTS SIO option SISR, lycée Saint-John Perse, Pau. Veille informatique mise à jour le 17 novembre 2026.</p></div>
+</footer>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('#filters button');
+  var events = document.querySelectorAll('.event');
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      var f = b.getAttribute('data-f');
+      events.forEach(function (e) { e.hidden = f !== 'all' && e.getAttribute('data-cat') !== f; });
+    });
+  });
+})();
+</script>
+<script src="../nav.js"></script>
+<script src="../cursor.js"></script>
+</body>
+</html>
