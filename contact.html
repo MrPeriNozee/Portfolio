@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Enzo Fontaine</title>
+<meta name="description" content="Contacter Enzo Fontaine, étudiant en BTS SIO option SISR à Pau.">
+<script src="theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* En-tête : grille de points qui s'éclaire autour du curseur (réglée par cursor.js) */
+.hero{display:block;position:relative;--cut:40px;padding:4rem 3rem 4.25rem;margin-bottom:3rem}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,70,85,.75) 1.3px,transparent 1.8px);background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent);
+  mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent)}
+.hero-content{position:relative}
+.hero h1{font-size:clamp(2.6rem,7vw,4.75rem)}
+.hero .role{font-size:clamp(1.2rem,2.6vw,1.7rem);margin:1rem 0 1.25rem}
+.hero .lead{max-width:56ch}
+@media (max-width:860px){.hero{padding:2.5rem 1.75rem 2.75rem}}
+
+/* Formulaire */
+.cform{display:grid;gap:1rem;max-width:640px}
+.cform label{display:block;margin-bottom:.35rem;font:700 1.05rem/1 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;color:var(--sand)}
+.cform input,.cform textarea{width:100%;padding:.8rem .9rem;border:0;background:var(--sand);color:#1A2530;font:400 1rem/1.5 "Barlow",system-ui,sans-serif;box-shadow:inset 0 -3px 0 var(--line-light)}
+.cform textarea{min-height:9rem;resize:vertical}
+.cform input:focus,.cform textarea:focus{outline:3px solid var(--red);outline-offset:2px}
+.cform button{justify-self:start;border:0;cursor:pointer}
+.cform .hint{margin:0;font-size:.92rem}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Navigation principale">
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li class="has-menu">
+      <button type="button" aria-expanded="false" aria-controls="menu-stage">Stage <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+      <ul class="submenu" id="menu-stage">
+        <li><a href="stage1/stage-1ere-annee.html">Stage 1ère année</a></li>
+        <li><a href="stage-2eme-annee.html">Stage 2ème année</a></li>
+      </ul>
+    </li>
+    <li><a href="index.html#projets">Projet</a></li>
+    <li><a href="veille/veille.html">Veille</a></li>
+    <li><a href="contact.html" aria-current="page">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <header class="panel hero">
+    <div class="hero-content">
+      <h1>Contact</h1>
+      <p class="role">Une question, une proposition de stage ?</p>
+      <p class="lead">Écris-moi par e-mail ou utilise le formulaire : ton message s'ouvre dans ta messagerie, prêt à être envoyé.</p>
+    </div>
+  </header>
+
+  <section class="block">
+    <h2>Coordonnées</h2>
+    <ul class="contact-list">
+      <li><span>Nom</span><strong>Enzo Fontaine</strong></li>
+      <li><span>Formation</span><strong>BTS SIO option SISR, lycée Saint-John Perse, Pau</strong></li>
+      <li><span>E-mail</span><a href="mailto:fontaine.enzo64000@gmail.com">fontaine.enzo64000@gmail.com</a></li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2>Envoyer un message</h2>
+    <div class="panel">
+      <form class="cform" id="contact-form">
+        <div><label for="nom">Nom</label><input type="text" id="nom" name="nom" autocomplete="name" required></div>
+        <div><label for="email">Ton e-mail</label><input type="email" id="email" name="email" autocomplete="email" required></div>
+        <div><label for="objet">Objet</label><input type="text" id="objet" name="objet" required></div>
+        <div><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
+        <button type="submit" class="btn btn-main">Envoyer</button>
+        <p class="hint">Le bouton ouvre ta messagerie avec le message déjà rédigé.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p>Enzo Fontaine, BTS SIO option SISR, lycée Saint-John Perse, Pau. Portfolio 2025 à 2026.</p></div>
+</footer>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var v = function (id) { return document.getElementById(id).value; };
+  var corps = v('message') + '\n\n' + v('nom') + '\n' + v('email');
+  window.location.href = 'mailto:fontaine.enzo64000@gmail.com?subject=' + encodeURIComponent(v('objet')) + '&body=' + encodeURIComponent(corps);
+});
+</script>
+<script src="nav.js"></script>
+<script src="cursor.js"></script>
+</body>
+</html>

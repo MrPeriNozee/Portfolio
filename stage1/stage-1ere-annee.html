@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stage de 1ère année, Cybertek | Enzo Fontaine</title>
+<script src="../theme.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
@@ -123,6 +124,14 @@ body{margin:0;background:#ECE8E1}
   .hero{padding:1.5rem}
 }
 /* ===== FIN DE LA SECTION ===== */
+
+/* ===== MODE SOMBRE ===== */
+:root[data-theme="dark"] body{background:#0A0F15}
+:root[data-theme="dark"] .stage{--bg:#0A0F15;--panel:#16212D;--line:#2B3948;--text:#ECE8E1;--muted:#A9B4C2;--navy:#152130}
+:root[data-theme="dark"] .weeks li:nth-child(4){border-top-color:#ECE8E1}
+:root[data-theme="dark"] .case li span{background:#2B3948}
+:root[data-theme="dark"] .case li.pivot span{background:var(--red);color:#0F1923}
+/* ===== FIN MODE SOMBRE ===== */
 </style>
 </head>
 <body>
@@ -140,7 +149,7 @@ body{margin:0;background:#ECE8E1}
     </li>
     <li><a class="nav-btn" href="../index.html#projets">Projet</a></li>
     <li><a class="nav-btn" href="../veille/veille.html">Veille</a></li>
-    <li><a class="nav-btn" href="../index.html#contact">Contact</a></li>
+    <li><a class="nav-btn" href="../contact.html">Contact</a></li>
   </ul>
 </nav>
 

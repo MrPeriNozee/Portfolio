@@ -144,3 +144,18 @@ h4{font-size:1.25rem;margin-bottom:.35rem}
   html{scroll-behavior:auto}
   .site-nav .chev,.btn{transition:none}
 }
+
+/* ============ Mode sombre (ajout : les règles ci-dessus restent inchangées) ============ */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --navy:#152130; --paper:#1B2836; --ink:#ECE8E1; --soft-ink:#A9B4C2; --line-light:#2B3948;
+}
+:root[data-theme="dark"] body{background:#0A0F15}
+:root[data-theme="dark"] .contact-list,
+:root[data-theme="dark"] .sources{border-top-color:var(--line-light)}
+:root[data-theme="dark"] .timeline{border-left-color:var(--line-light)}
+:root[data-theme="dark"] .event::before{border-color:#0A0F15}
+:root[data-theme="dark"] .filters button:not([aria-pressed="true"]){box-shadow:inset 0 0 0 2px var(--line-light)}
+/* le schéma SVG garde ses couleurs d'origine : il reste sur fond clair */
+:root[data-theme="dark"] .v-diagram{background:var(--sand)}
+:root[data-theme="dark"] .v-diagram figcaption{color:#4A5663}

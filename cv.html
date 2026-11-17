@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV | Enzo Fontaine</title>
+<meta name="description" content="CV d'Enzo Fontaine, étudiant en BTS SIO option SISR : formation, expériences, compétences et projets.">
+<script src="theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* En-tête : grille de points qui s'éclaire autour du curseur (réglée par cursor.js) */
+.hero{display:block;position:relative;--cut:40px;padding:4rem 3rem 4.25rem;margin-bottom:3rem}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,70,85,.75) 1.3px,transparent 1.8px);background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent);
+  mask-image:radial-gradient(circle 260px at var(--mx,80%) var(--my,40%),rgba(0,0,0,.55),transparent)}
+.hero-content{position:relative}
+.hero h1{font-size:clamp(2.6rem,7vw,4.75rem)}
+.hero .role{font-size:clamp(1.2rem,2.6vw,1.7rem);margin:1rem 0 1.25rem}
+.hero .lead{max-width:56ch}
+@media (max-width:860px){.hero{padding:2.5rem 1.75rem 2.75rem}}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Navigation principale">
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="cv.html" aria-current="page">CV</a></li>
+    <li class="has-menu">
+      <button type="button" aria-expanded="false" aria-controls="menu-stage">Stage <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+      <ul class="submenu" id="menu-stage">
+        <li><a href="stage1/stage-1ere-annee.html">Stage 1ère année</a></li>
+        <li><a href="stage-2eme-annee.html">Stage 2ème année</a></li>
+      </ul>
+    </li>
+    <li><a href="index.html#projets">Projet</a></li>
+    <li><a href="veille/veille.html">Veille</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <header class="panel hero">
+    <div class="hero-content">
+      <h1>Curriculum vitae</h1>
+      <p class="role">Enzo Fontaine, étudiant en BTS SIO option SISR</p>
+      <p class="lead">Étudiant en deuxième année au lycée Saint-John Perse à Pau, je cherche un stage du 4 janvier au 19 février 2027 en infrastructure, systèmes et réseaux.</p>
+      <div class="actions">
+        <a class="btn btn-main" href="contact.html">Me contacter</a>
+        <a class="btn btn-alt" href="stage1/documents/Rapport_de_stage_Enzo_FONTAINE.pdf">Rapport de stage (PDF)</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="block" id="formation">
+    <h2>Formation</h2>
+    <div class="panel panel-sm">
+      <dl class="specs" style="margin-top:0">
+        <div><dt>Diplôme</dt><dd>BTS Services informatiques aux organisations (SIO)</dd></div>
+        <div><dt>Option</dt><dd>SISR : solutions d'infrastructure, systèmes et réseaux</dd></div>
+        <div><dt>Établissement</dt><dd>Lycée Saint-John Perse, Pau</dd></div>
+        <div><dt>Période</dt><dd>2025 à 2027</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <h2>Expériences</h2>
+    <div class="skills">
+      <article class="card">
+        <h3>Stage de 1ère année</h3>
+        <p><strong>Cybertek, Pau</strong> : du 25 mai au 26 juin 2026. Montage et maintenance de PC, diagnostic de pannes, missions de boutique.</p>
+        <p><a href="stage1/stage-1ere-annee.html">Voir le détail du stage</a></p>
+      </article>
+      <article class="card">
+        <h3>Stage de 2ème année</h3>
+        <p><strong>À venir</strong> : du 4 janvier au 19 février 2027, en infrastructure, systèmes et réseaux.</p>
+        <p><a href="stage-2eme-annee.html">Voir la page du stage</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="competences">
+    <h2>Compétences</h2>
+    <div class="skills">
+      <article class="card">
+        <h3>Réseaux</h3>
+        <ul class="tags">
+          <li>Routage et NAT</li><li>nftables</li><li>pfSense</li><li>DynFi</li><li>UFW</li><li>nmap</li><li>DHCP</li><li>DNS (BIND)</li><li>HAProxy</li><li>Cisco Packet Tracer</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Systèmes</h3>
+        <ul class="tags">
+          <li>Debian</li><li>Windows Server 2025</li><li>Active Directory</li><li>Samba</li><li>Proxmox</li><li>VirtualBox</li><li>SSH</li><li>MobaXterm</li><li>PuTTY</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Web et développement</h3>
+        <ul class="tags">
+          <li>Apache</li><li>Nginx</li><li>PHP</li><li>SQL (PDO)</li><li>MariaDB</li><li>Python</li><li>Bash</li><li>HTML et CSS</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Sécurité et support</h3>
+        <ul class="tags">
+          <li>Analyse d'e-mails malveillants</li><li>SPF, DKIM, DMARC</li><li>OSINT</li><li>Montage de PC</li><li>Diagnostic matériel</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="projets-cv">
+    <h2>Projets réalisés</h2>
+    <ul class="plain">
+      <li>Réseau d'une station de ski (ALPY) : environnement virtualisé sous VirtualBox.</li>
+      <li>Projet de groupe « kiwi » : infrastructure sur Proxmox avec pfSense, DMZ et LAN.</li>
+      <li>TP pfSense : NAT, DHCP, portail captif, limitation de débit.</li>
+      <li>Serveur LAMP et contre-mesures.</li>
+      <li>Analyse d'e-mails malveillants.</li>
+      <li>Installation automatisée de Nextcloud.</li>
+    </ul>
+    <div class="actions"><a class="btn btn-main" href="index.html#projets">Voir les projets en détail</a></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p>Enzo Fontaine, BTS SIO option SISR, lycée Saint-John Perse, Pau. Portfolio 2025 à 2026.</p></div>
+</footer>
+
+<script src="nav.js"></script>
+<script src="cursor.js"></script>
+</body>
+</html>
